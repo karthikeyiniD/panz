@@ -85,8 +85,8 @@ pipeline {
        sh '''
             export AWS_ACCESS_KEY_ID=$Access_Key
 	    export AWS_SECRET_ACCESS_KEY=$Secret_Key
-	    export AWS_DEFAULT_REGION=us-east-2
-            aws eks update-kubeconfig --name sample --region us-east-2
+	    export AWS_DEFAULT_REGION=us-east-1
+            aws eks update-kubeconfig --name demo --region us-east-1
   	    sed "s/changebuildnumber/${BUILD_NUMBER}/g" deploy.yml
   	    kubectl apply -f deploy.yml
   	    kubectl apply -f svc.yml

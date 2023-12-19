@@ -8,16 +8,16 @@ pipeline {
     REPO_NAME = "panz"
     SONAR_PROJECT_KEY = "demo"
     IMAGE_TAG = "demo-project-${BUILD_NUMBER}"
-    DOCKER_REPO_URL = "971076122335.dkr.ecr.us-east-2.amazonaws.com"
+    DOCKER_REPO_URL = "771070158678.dkr.ecr.us-east-1.amazonaws.com"
     DOCKER_REPO_NAME = "demo"
   }
   stages {
     stage('Git checkout') {
       steps {
-        checkout([
+      checkout([
             $class: 'GitSCM',
             branches: [[name: "*/${BRANCH_NAME}"]],
-            userRemoteConfigs: [[credentialsId: 'git-creds', url: "https://github.com/phani-rudra9/${REPO_NAME}"]]
+            userRemoteConfigs: [[credentialsId: 'git-creds', url: "https://github.com/karthikeyiniD/${REPO_NAME}"]]
         ])       
      }   
    }
@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh '''
         export PATH="$PATH:/var/lib/jenkins/.dotnet/tools"
-      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://54.67.17.31:9000"  /d:sonar.login="$SONAR_TOKEN"
+      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://18.116.8.152:9000"  /d:sonar.login="$SONAR_TOKEN"
         dotnet build
         dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   

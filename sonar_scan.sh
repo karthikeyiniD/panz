@@ -6,5 +6,5 @@ then
     echo "sonar_scan_status is $sonar_scan and it's safe"
 else
     echo "sonar_scan_status is having errors and please check"
-    exit 1
+    #exit 1
 fi

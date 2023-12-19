@@ -34,7 +34,7 @@ spec:
 
       - name: demo
 
-        image: 771070158678.dkr.ecr.us-east-1.amazonaws.com/demo:demo-project-ChangebuildNumber
+        image: 771070158678.dkr.ecr.us-east-1.amazonaws.com/demo:demo-project-changebuildNumber
 
         ports:
 

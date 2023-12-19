@@ -46,6 +46,9 @@ pipeline {
       steps {
         sh '''
          whoami
+	 export AWS_ACCESS_KEY_ID=$Access_Key
+	 export AWS_SECRET_ACCESS_KEY=$Secret_Key
+	 export AWS_DEFAULT_REGION=us-east-2
          DOCKER_LOGIN_PASSWORD=$(aws ecr get-login-password  --region us-east-2)
          docker login -u AWS -p $DOCKER_LOGIN_PASSWORD https://$DOCKER_REPO_URL
          docker build -t $DOCKER_REPO_URL/$DOCKER_REPO_NAME:$IMAGE_TAG .

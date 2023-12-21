@@ -59,8 +59,8 @@ pipeline {
       steps {
         sh '''
     	sleep 20
-        chmod +x dependency_check.yml
-        bash dependency_check.yml     
+        chmod +x dependency_check.sh
+        bash dependency_check.sh 
 	  '''
      }   
    }

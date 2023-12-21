@@ -55,6 +55,16 @@ pipeline {
      }   
    }
 
+     stage('dependency check') {
+      steps {
+        sh '''
+    	sleep 20
+        chmod +x dependency_check.yml
+        bash dependency_check.yml     
+	  '''
+     }   
+   }
+
     stage('Image Scan') {
       steps {
         sh '''

@@ -8,7 +8,7 @@ pipeline {
     REPO_NAME = "panz"
     SONAR_PROJECT_KEY = "demo"
     IMAGE_TAG = "demo-project-${BUILD_NUMBER}"
-    DOCKER_REPO_URL = "771070158678.dkr.ecr.us-east-1.amazonaws.com"
+    DOCKER_REPO_URL = "771070158678.dkr.ecr.us-east-2.amazonaws.com"
     DOCKER_REPO_NAME = "demo"
   }
   stages {
@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh '''
         export PATH="$PATH:/var/lib/jenkins/.dotnet/tools"
-      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://18.116.8.152:9000"  /d:sonar.login="$SONAR_TOKEN"
+      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://3.144.219.201:9000"  /d:sonar.login="$SONAR_TOKEN"
         dotnet build
         dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   
@@ -46,10 +46,10 @@ pipeline {
       steps {
         sh '''
          whoami
-	 export AWS_ACCESS_KEY_ID=$Access_Key
-	 export AWS_SECRET_ACCESS_KEY=$Secret_Key
-	 export AWS_DEFAULT_REGION=us-east-1
-         DOCKER_LOGIN_PASSWORD=$(aws ecr get-login-password  --region us-east-1)
+	 // export AWS_ACCESS_KEY_ID=$Access_Key
+	 // export AWS_SECRET_ACCESS_KEY=$Secret_Key
+	 // export AWS_DEFAULT_REGION=us-east-1
+         DOCKER_LOGIN_PASSWORD=$(aws ecr get-login-password  --region us-east-2)
          docker login -u AWS -p $DOCKER_LOGIN_PASSWORD https://$DOCKER_REPO_URL
          docker build -t $DOCKER_REPO_URL/$DOCKER_REPO_NAME:$IMAGE_TAG .
          docker push $DOCKER_REPO_URL/$DOCKER_REPO_NAME:$IMAGE_TAG
@@ -83,10 +83,10 @@ pipeline {
    stage('eks deploy') {
      steps {
        sh '''
-            export AWS_ACCESS_KEY_ID=$Access_Key
-	    export AWS_SECRET_ACCESS_KEY=$Secret_Key
-	    export AWS_DEFAULT_REGION=us-east-1
-            aws eks update-kubeconfig --name demo --region us-east-1
+            // export AWS_ACCESS_KEY_ID=$Access_Key
+	    // export AWS_SECRET_ACCESS_KEY=$Secret_Key
+	    // export AWS_DEFAULT_REGION=us-east-1
+            aws eks update-kubeconfig --name demo --region us-east-2
   	    sed "s/changebuildnumber/${BUILD_NUMBER}/g" deploy.yml
   	    kubectl apply -f deploy.yml
   	    kubectl apply -f svc.yml

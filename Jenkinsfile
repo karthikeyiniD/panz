@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh '''
         export PATH="$PATH:/var/lib/jenkins/.dotnet/tools"
-      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://3.144.219.201:9000"  /d:sonar.login="$SONAR_TOKEN"
+      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://3.19.227.181:9000"  /d:sonar.login="$SONAR_TOKEN"
         dotnet build
         dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   

@@ -21,27 +21,27 @@ pipeline {
         ])       
      }   
    }
-   stage('sonar scanner') {
-      steps {
-        sh '''
-        export PATH="$PATH:/var/lib/jenkins/.dotnet/tools"
-      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://3.19.227.181:9000"  /d:sonar.login="$SONAR_TOKEN"
-        dotnet build
-        dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+ //   stage('sonar scanner') {
+ //      steps {
+ //        sh '''
+ //        export PATH="$PATH:/var/lib/jenkins/.dotnet/tools"
+ //      	dotnet sonarscanner begin /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="http://3.19.227.181:9000"  /d:sonar.login="$SONAR_TOKEN"
+ //        dotnet build
+ //        dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   
-	  '''
-     }   
-   }
-   stage('Sonar Quality Gate Check') {
-      steps {
-        sh '''
-	sleep 20
-        chmod +x sonar_scan.sh
-        bash sonar_scan.sh
+	//   '''
+ //     }   
+ //   }
+ //   stage('Sonar Quality Gate Check') {
+ //      steps {
+ //        sh '''
+	// sleep 20
+ //        chmod +x sonar_scan.sh
+ //        bash sonar_scan.sh
           
-	  '''
-     }   
-   }
+	//   '''
+ //     }   
+ //   }
    stage('Docker build and push') {
       steps {
         sh '''
@@ -88,20 +88,20 @@ pipeline {
 //      }   
 //    }
 	  
-   stage('eks deploy') {
-     steps {
-       sh '''
+//    stage('eks deploy') {
+//      steps {
+//        sh '''
             
-            aws eks update-kubeconfig --name demo --region us-east-2
-  	    sed "s/changebuildnumber/${BUILD_NUMBER}/g" deploy.yml 
-  	    kubectl apply -f deploy.yml
-  	    kubectl apply -f svc.yml
+//             aws eks update-kubeconfig --name demo --region us-east-2
+//   	    sed "s/changebuildnumber/${BUILD_NUMBER}/g" deploy.yml 
+//   	    kubectl apply -f deploy.yml
+//   	    kubectl apply -f svc.yml
   
-  	  '''
-    }   
-  }
-}
-}
+//   	  '''
+//     }   
+//   }
+ }
+ }
 //       stage('ecs deploy') {
 //       steps {
 //           sh '''

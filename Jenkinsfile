@@ -62,7 +62,6 @@ pipeline {
 	BOM_CONTENT_BASE64=$(base64 -w0 syft_scanresults)
 	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
-
 	  '''
      }   
    }

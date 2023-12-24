@@ -50,7 +50,7 @@ JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
 echo "JSON_PAYLOAD: $JSON_PAYLOAD" >> debug.log
 
 # Send SBOM to Dependency-Track
-curl -X "PUT" "https://api.karthikeyini.tech" \
+curl -X "PUT" "https://www.karthikeyini.tech/api/v1/bom" \
    -H "Content-Type: application/json" \
    -H "X-API-Key: ${Dependency_Track_Project_Token}" \
    --data @json_payload.json

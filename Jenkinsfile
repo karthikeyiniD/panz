@@ -60,7 +60,7 @@ pipeline {
         sh '''
 	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-63 -o cyclonedx > syft_scanresults
 	BOM_CONTENT_BASE64=$(base64 -w0 syft_scanresults)
-	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
+	echo '{"bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	  '''
      }   
    }
@@ -68,7 +68,7 @@ pipeline {
      stage('dependencyTrackPublisher') {
             steps {
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                    dependencyTrackPublisher artifact: 'json_payload.json', projectId: '70009411-9135-4bd4-8618-40d8cf252157', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
+                    dependencyTrackPublisher artifact: 'json_payload.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
 		}
 		    
             }

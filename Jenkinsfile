@@ -69,7 +69,7 @@ pipeline {
      stage('dependencyTrackPublisher') {
             steps {
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                    dependencyTrackPublisher artifact: 'json_payload.json', project: '70009411-9135-4bd4-8618-40d8cf252157', projectName: 'demo-project', projectVersion: 'anand', synchronous: true, dependencyTrackApiKey: api_key ; 
+                    dependencyTrackPublisher artifact: 'json_payload.json', projectId: '70009411-9135-4bd4-8618-40d8cf252157', projectName: 'demo-project', projectVersion: 'anand', synchronous: true, dependencyTrackApiKey: api_key ; 
 		}
 		    
             }

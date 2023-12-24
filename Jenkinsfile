@@ -63,11 +63,16 @@ pipeline {
 	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
 	  '''
-	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-		dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'demo-project', projectVersion: '1', synchronous: true, dependencyTrackApiKey: API_KEY,
-	}
      }   
    }
+
+     stage('dependencyTrackPublisher') {
+            steps {
+	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+                    dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'demo-project', projectVersion: '1', synchronous: true, dependencyTrackApiKey: api_key, 
+                }
+            }
+        }
 	  
      stage('dependency check') {
       steps {

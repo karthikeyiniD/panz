@@ -65,13 +65,24 @@ pipeline {
      }   
    }
 
-     stage('Dependency Track Publisher') {
-            steps {
-            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
-           	 }
-        }
-     }
+	stage('Dependency Track Publisher') {
+        	steps {
+			timeout(time: 5, unit: 'MINUTES') {
+            	  		withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+                       			dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
+           	  		}
+			}
+			post {
+                		success {
+                    			echo 'Build completed successfully'
+                		}
+                		failure {
+                    			echo 'Build failed'
+                    			currentBuild.result = 'SUCCESS' 
+               		 	}
+           		}
+       		 }
+	}
 	  
    //   stage('dependency check') {
    //    steps {

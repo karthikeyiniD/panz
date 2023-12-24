@@ -64,6 +64,9 @@ pipeline {
    }
 
      stage('dependencyTrackPublisher') {
+	options {
+        timeout(time: 30, unit: 'MINUTES') // Adjust the timeout duration as needed
+        }
             steps {
 		sleep 20    
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {

@@ -6,3 +6,4 @@ ECR_TAG="demo-project-changebuildnumber"
 
 # Run Syft to generate SBOM
 syft packages docker:$DOCKER_REGISTRY/$REPO_DEV_NAME:$ECR_TAG -o cyclonedx > bom.json
+cat bom.json

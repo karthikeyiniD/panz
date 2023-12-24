@@ -62,10 +62,9 @@ pipeline {
 	BOM_CONTENT_BASE64=$(base64 -w0 syft_scanresults)
 	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
- 	curl -X "PUT" "https://www.karthikeyini.tech/api/v1/bom" \
-	   -H "Content-Type: application/json" \
-	   -H "X-API-Key: odt_RtE9ROsIe5QlJZvi18xoLE0AyzKIVQjf" \
-	   --data @json_payload.json
+ 	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+                    dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'demo-project', projectVersion: '1', synchronous: true, dependencyTrackApiKey: API_KEY,
+                }
 	  '''
      }   
    }

@@ -69,8 +69,9 @@ pipeline {
      stage('dependencyTrackPublisher') {
             steps {
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                    dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'demo-project', projectVersion: '1', synchronous: true, dependencyTrackApiKey: api_key, 
-                }
+                    dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'demo-project', projectVersion: '1', synchronous: true, dependencyTrackApiKey: api_key ; 
+		}
+		    
             }
         }
 	  

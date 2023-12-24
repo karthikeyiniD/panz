@@ -58,27 +58,20 @@ pipeline {
    stage('syft scan') {
       steps {
         sh '''
-	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.xml
-
-	curl -X "POST" "https://api.karthikeyini.tech" \
-	     -H 'Content-Type: multipart/form-data' \
-	     -H "X-Api-Key: $API_KEY" \
-	     -F "autoCreate=true" \
-	     -F "projectName=demo-project" \
-	     -F "projectVersion=2.0" \
-	     -F "bom=@bom.xml"
-
+	sed "s/changebuildnumber/${BUILD_NUMBER}/g" syft.sh > syft-new.sh
+	chmod +x syft-new.sh 
+        bash syft-new.sh
 	  '''
      }   
    }
 
- //     stage('dependencyTrackPublisher') {
- //            steps {
- //            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
- //                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
- //           	 }
- //        }
- //     }
+     stage('dependencyTrackPublisher') {
+            steps {
+            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
+           	 }
+        }
+     }
 	  
    //   stage('dependency check') {
    //    steps {

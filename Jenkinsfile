@@ -60,7 +60,7 @@ pipeline {
         sh '''
     	sleep 20
         chmod +x dependency_check.sh 
-        bash dependency_check.sh 
+        bash dependency_check.sh docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-8 70009411-9135-4bd4-8618-40d8cf252157
 	  '''
      }   
    }

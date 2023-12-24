@@ -65,6 +65,7 @@ pipeline {
 
      stage('dependencyTrackPublisher') {
             steps {
+		sleep 20    
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
                     dependencyTrackPublisher artifact: 'bom.xml', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
 		}

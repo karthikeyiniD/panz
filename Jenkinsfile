@@ -58,7 +58,7 @@ pipeline {
    stage('syft scan') {
       steps {
         sh '''
-	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.xml
+	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.json
 	  '''
      }   
    }
@@ -66,7 +66,7 @@ pipeline {
      stage('dependencyTrackPublisher') {
             steps {
             	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                dependencyTrackPublisher artifact: 'bom.xml', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
+                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
            	 }
         }
      }

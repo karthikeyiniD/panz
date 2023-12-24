@@ -60,13 +60,14 @@ pipeline {
         sh '''
 	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.xml
 
-  	curl -X "POST" "https://api.karthikeyini.tech" \
- 	     -H 'Content-Type: multipart/form-data' \
+	curl -X "POST" "https://api.karthikeyini.tech" \
+	     -H 'Content-Type: multipart/form-data' \
 	     -H "X-Api-Key: $API_KEY" \
-    	     -F "autoCreate=true" \
-   	     -F "projectName=demo-project" \
-             -F "projectVersion=2.0" \
-             -F "bom=@target/bom.xml"
+	     -F "autoCreate=true" \
+	     -F "projectName=demo-project" \
+	     -F "projectVersion=2.0" \
+	     -F "bom=@bom.xml"
+
 	  '''
      }   
    }

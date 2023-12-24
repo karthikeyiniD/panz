@@ -68,7 +68,7 @@ pipeline {
      stage('dependencyTrackPublisher') {
             steps {
 	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                    dependencyTrackPublisher artifact: 'json_payload.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
+                    dependencyTrackPublisher artifact: 'syft_scanresults', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
 		}
 		    
             }

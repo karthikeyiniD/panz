@@ -5,7 +5,7 @@ Dependency_Track_Project_Identity="70009411-9135-4bd4-8618-40d8cf252157"
 Dependency_Track_Project_Token="odt_RtE9ROsIe5QlJZvi18xoLE0AyzKIVQjf"
 DOCKER_REGISTRY="771070158678.dkr.ecr.us-east-2.amazonaws.com"
 REPO_DEV_NAME="demo"
-ECR_TAG="demo-project-25"
+ECR_TAG="demo-project-78"
 
 # Run Syft to generate SBOM
 syft packages docker:$DOCKER_REGISTRY/$REPO_DEV_NAME:$ECR_TAG -o cyclonedx > syft_scanresults

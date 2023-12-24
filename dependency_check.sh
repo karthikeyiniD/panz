@@ -20,7 +20,7 @@ echo '{"project": "'"$Dependency_Track_Project_Identity"'", "bom": "'"$BOM_CONTE
 JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
 
 # Send SBOM to Dependency-Track
-curl -X "PUT" "http://www.karthikeyini.tech/api/v1/bom" \
+curl -X "PUT" "https://api.karthikeyini.tech/" \
    -H "Content-Type: application/json" \
    -H "X-API-Key: ${Dependency_Track_Project_Token}" \
    --data @json_payload.json

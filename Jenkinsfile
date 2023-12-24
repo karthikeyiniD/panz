@@ -61,7 +61,7 @@ pipeline {
 	 curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-43 -o cyclonedx > syft_scanresults
 	BOM_CONTENT_BASE64=$(base64 -w0 syft_scanresults)
-	echo '{"project": "'"$Dependency_Track_Project_Identity"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
+	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')
 
 	  '''

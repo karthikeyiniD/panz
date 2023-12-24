@@ -55,6 +55,15 @@ pipeline {
      }   
    }
 
+   stage('syft scan') {
+      steps {
+        sh '''
+	 curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+    	 syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-39 --scope all-layers  -o json
+	  '''
+     }   
+   }
+	  
      stage('dependency check') {
       steps {
         sh '''

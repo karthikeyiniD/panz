@@ -58,12 +58,15 @@ pipeline {
    stage('syft scan') {
       steps {
         sh '''
-	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.json
+	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.xml
 
- 	curl -X "PUT" "https://api.karthikeyini.tech \
- 	 -H "Content-Type: application/json" \
-  	 -H "X-API-Key: $API_KEY" \
-	 --data @bom.json
+  	curl -X "POST" "https://api.karthikeyini.tech" \
+ 	     -H 'Content-Type: multipart/form-data' \
+	     -H "X-Api-Key: $API_KEY" \
+    	     -F "autoCreate=true" \
+   	     -F "projectName=demo-project" \
+             -F "projectVersion=2.0" \
+             -F "bom=@target/bom.xml"
 	  '''
      }   
    }

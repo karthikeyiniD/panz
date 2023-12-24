@@ -58,7 +58,7 @@ pipeline {
    stage('syft scan') {
       steps {
         sh '''
-	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-43 -o cyclonedx > syft_scanresults
+	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-45 -o cyclonedx > syft_scanresults
 	BOM_CONTENT_BASE64=$(base64 -w0 syft_scanresults)
 	echo '{"project": "'"70009411-9135-4bd4-8618-40d8cf252157"'", "bom": "'"$BOM_CONTENT_BASE64"'"}' > json_payload.json
 	JSON_PAYLOAD=$(jq -n --slurpfile json json_payload.json '$json[0]')

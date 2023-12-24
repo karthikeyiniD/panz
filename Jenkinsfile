@@ -55,21 +55,21 @@ pipeline {
      }   
    }
 
-   stage('syft scan') {
-      steps {
-        sh '''
-	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.json
-	  '''
-     }   
-   }
+ //   stage('syft scan') {
+ //      steps {
+ //        sh '''
+	// syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.json
+	//   '''
+ //     }   
+ //   }
 
-     stage('dependencyTrackPublisher') {
-            steps {
-            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
-           	 }
-        }
-     }
+ //     stage('dependencyTrackPublisher') {
+ //            steps {
+ //            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+ //                dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
+ //           	 }
+ //        }
+ //     }
 	  
      stage('dependency check') {
       steps {

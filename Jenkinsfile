@@ -64,16 +64,12 @@ pipeline {
    }
 
      stage('dependencyTrackPublisher') {
-	options {
-        timeout(time: 30, unit: 'MINUTES') // Adjust the timeout duration as needed
-        }
             steps {
-		sleep 20    
-	        withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
-                    dependencyTrackPublisher artifact: 'bom.xml', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key ; 
-		}
-		    
-            }
+       	    timeout(time: 5, unit: 'MINUTES') {
+            	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
+                dependencyTrackPublisher artifact: 'bom.xml', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
+           	 }
+	    }
         }
 	  
      stage('dependency check') {

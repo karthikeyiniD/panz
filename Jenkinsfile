@@ -60,7 +60,7 @@ pipeline {
         sh '''
 	syft packages docker:771070158678.dkr.ecr.us-east-2.amazonaws.com/demo:demo-project-76 -o cyclonedx > bom.json
 
- 	curl -X "PUT" "https://api.karthikeyini.tech/projects/1f00af01-2df8-4b68-a0ee-6781adfe0c83" \
+ 	curl -X "PUT" "https://api.karthikeyini.tech \
  	 -H "Content-Type: application/json" \
   	 -H "X-API-Key: $API_KEY" \
 	 --data @bom.json

@@ -55,7 +55,7 @@ pipeline {
      }   
    }
 
-   stage('syft scan') {
+   stage('Syft Scan') {
       steps {
         sh '''
 	sed "s/changebuildnumber/${BUILD_NUMBER}/g" syft.sh > syft-new.sh
@@ -65,7 +65,7 @@ pipeline {
      }   
    }
 
-     stage('dependencyTrackPublisher') {
+     stage('Dependency Track Publisher') {
             steps {
             	withCredentials([string(credentialsId: 'api_key', variable: 'api_key')]) {
                 dependencyTrackPublisher artifact: 'bom.json', projectName: 'sample-project', projectVersion: '1.0', synchronous: true, dependencyTrackApiKey: api_key
